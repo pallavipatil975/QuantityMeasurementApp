@@ -69,6 +69,18 @@ public class QuantityMeasurementApp {
 
         demonstrateFeetEquality();
         demonstrateInchesEquality();
-
+        demonstrateFeetInchesEquality();
     }
+
+    private static void demonstrateFeetInchesEquality() {
+        Length feet = new Length(1.0, Length.LengthUnit.FEET);
+        Length inches = new Length(12.0, Length.LengthUnit.INCHES);
+
+        System.out.println("feet equals inches : " + demonstrateLengthEquality(feet, inches));
+    }
+
+    private static boolean demonstrateLengthEquality(Length length1, Length length2) {
+        return length1.equals(length2);
+    }
+
 }
