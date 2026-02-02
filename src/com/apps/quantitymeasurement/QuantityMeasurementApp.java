@@ -69,10 +69,10 @@ public class QuantityMeasurementApp {
 
         demonstrateFeetEquality();
         demonstrateInchesEquality();
-        demonstrateFeetInchesEquality();
+        demonstrateFeetInchesComparison();
     }
 
-    private static void demonstrateFeetInchesEquality() {
+    private static void demonstrateFeetInchesComparison() {
        Length feet = new Length(1.0, Length.LengthUnit.FEET);
        Length inches = new Length(12.0, Length.LengthUnit.INCHES);
 
