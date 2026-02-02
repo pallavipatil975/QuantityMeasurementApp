@@ -3,6 +3,8 @@ package com.apps.quantitymeasurement;
 import com.apps.quantitymeasurement.QuantityMeasurementApp.*;
 import org.junit.jupiter.api.Test;
 
+import javax.swing.*;
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 
@@ -124,5 +126,41 @@ public class QuantityMeasurementAppTest {
         Length feet1 = new Length(3.0, Length.LengthUnit.FEET);
         assertEquals(inches1, feet1);
     }
+
+    @Test
+    public void yardEquals36Inches(){
+        Length yard = new Length(1.0, Length.LengthUnit.YARDS);
+        Length inches = new Length(36.0, Length.LengthUnit.INCHES);
+        assertEquals(yard, inches);
+    }
+
+    @Test
+    public void centimeterEquals39Points3701Inches(){
+        Length centimeter = new Length(100.0, Length.LengthUnit.CENTIMETER);
+        Length inches = new Length(39.3701, Length.LengthUnit.INCHES);
+        assertEquals(centimeter, inches);
+    }
+
+    @Test
+    public void threeFeetEqualsOneYard(){
+        Length feet = new Length(3.0, Length.LengthUnit.FEET);
+        Length yard = new Length(1.0, Length.LengthUnit.YARDS);
+        assertEquals(feet, yard);
+    }
+
+    @Test
+    public void thirtyPoint48CmEqualsOneFoot(){
+        Length centimeter = new Length(30.48, Length.LengthUnit.CENTIMETER);
+        Length feet = new Length(1.0, Length.LengthUnit.FEET);
+        assertEquals(feet, feet);
+    }
+
+    @Test
+    public void yardNotEqualsToInches(){
+        Length yard = new Length(1.0, Length.LengthUnit.YARDS);
+        Length Inches = new Length(12.0, Length.LengthUnit.INCHES);
+        assertNotEquals(yard, Inches);
+    }
+
 
 }

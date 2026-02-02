@@ -69,6 +69,34 @@ public class QuantityMeasurementApp {
 
         demonstrateFeetEquality();
         demonstrateInchesEquality();
+        demonstrateFeetInchesComparison();
 
+        demonstrateLengthComparison(1.0, Length.LengthUnit.FEET, 12.0, Length.LengthUnit.INCHES);
+
+        demonstrateLengthComparison(1.0, Length.LengthUnit.YARDS,36.0, Length.LengthUnit.INCHES);
+
+        demonstrateLengthComparison(100.0, Length.LengthUnit.CENTIMETER, 39.3701, Length.LengthUnit.INCHES);
+
+        demonstrateLengthComparison(3.0, Length.LengthUnit.FEET,1.0, Length.LengthUnit.YARDS);
+
+        demonstrateLengthComparison(30.48, Length.LengthUnit.CENTIMETER,1.0, Length.LengthUnit.FEET);
     }
+
+    private static void demonstrateLengthComparison(double v, Length.LengthUnit lengthUnit, double v1, Length.LengthUnit lengthUnit1) {
+        System.out.println(demonstrateLengthEquality(new Length(v,lengthUnit), new Length(v1, lengthUnit1)));
+    }
+
+    private static void demonstrateFeetInchesComparison() {
+        Length feet = new Length(1.0, Length.LengthUnit.FEET);
+        Length inches = new Length(12.0, Length.LengthUnit.INCHES);
+
+        System.out.println("feet equals inches : " + demonstrateLengthEquality(feet, inches));
+    }
+
+    private static boolean demonstrateLengthEquality(Length length1, Length length2) {
+        boolean result = length1.equals(length2);
+        return result;
+    }
+
+
 }
