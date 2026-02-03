@@ -2,6 +2,8 @@ package com.apps.quantitymeasurement;
 
 import com.apps.quantitymeasurement.QuantityMeasurementApp.*;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.EnumSource;
 
 import javax.swing.*;
 
@@ -162,5 +164,35 @@ public class QuantityMeasurementAppTest {
         assertNotEquals(yard, Inches);
     }
 
+    @ParameterizedTest
+    @EnumSource(Length.LengthUnit.class)
+    public void referenceEqualitySameObject(Length.LengthUnit unit){
+      Length length = new Length(1.0, unit);
+      assertEquals(length, length);
+    }
 
+    @ParameterizedTest
+    @EnumSource(Length.LengthUnit.class)
+    public void equalsReturnFalseForNull(Length.LengthUnit unit){
+        Length length = new Length(1.0, unit);
+    }
+
+    public void reflexiveSymmetricAndTranstiveProperty(){
+
+    }
+
+    @ParameterizedTest
+    @EnumSource(Length.LengthUnit.class)
+    public void differentValueSSameUnitNotEqual(Length.LengthUnit unit){
+        Length length1 = new Length(1.0, unit);
+        Length length2 = new Length(12.0, unit);
+        assertNotEquals(length1, length2);
+    }
+
+  /*  @ParameterizedTest
+    @EnumSource(Length.LengthUnit.class)
+    public void crossUnitEqualityDemonstrateMethod(double value1, Length.LengthUnit unit1){
+        boolean result =QuantityMeasurementApp.demonstrateLengthComparison(value1);
+
+    }*/
 }

@@ -71,6 +71,7 @@ public class QuantityMeasurementApp {
         demonstrateInchesEquality();
         demonstrateFeetInchesComparison();
 
+
         demonstrateLengthComparison(1.0, Length.LengthUnit.FEET, 12.0, Length.LengthUnit.INCHES);
 
         demonstrateLengthComparison(1.0, Length.LengthUnit.YARDS,36.0, Length.LengthUnit.INCHES);
@@ -82,8 +83,9 @@ public class QuantityMeasurementApp {
         demonstrateLengthComparison(30.48, Length.LengthUnit.CENTIMETER,1.0, Length.LengthUnit.FEET);
     }
 
-    private static void demonstrateLengthComparison(double v, Length.LengthUnit lengthUnit, double v1, Length.LengthUnit lengthUnit1) {
-        System.out.println(demonstrateLengthEquality(new Length(v,lengthUnit), new Length(v1, lengthUnit1)));
+    public static boolean demonstrateLengthComparison(double v, Length.LengthUnit lengthUnit, double v1, Length.LengthUnit lengthUnit1) {
+       boolean result = demonstrateLengthEquality(new Length(v,lengthUnit), new Length(v1, lengthUnit1));
+       return result;
     }
 
     private static void demonstrateFeetInchesComparison() {
