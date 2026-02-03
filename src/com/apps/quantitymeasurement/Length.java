@@ -37,11 +37,29 @@ public class Length {
         return Math.round(inches* 100.00) / 100.0;
     }
 
+    public Length convertTo(LengthUnit tragetUnit){
+        if(tragetUnit == null){
+            throw new IllegalArgumentException("target unit must not be null");
+        }
+        double inches = convertToBaseUnit();
+      double convertedValue = inches / tragetUnit.getConversionFactor();
+       convertedValue =  Math.round(convertedValue*100.00)/100.0;
+        return new Length(convertedValue, tragetUnit);
+    }
+
     //compare two length objects
     public boolean compare(Length thatLength) {
         return Double.
                 compare(this.convertToBaseUnit(),
                         thatLength.convertToBaseUnit()) == 0;
+    }
+
+    @Override
+    public String toString() {
+        return "Length{" +
+                "value=" + value +
+                ", unit=" + unit +
+                '}';
     }
 
     public boolean equals(Object o) {
@@ -67,5 +85,8 @@ public class Length {
         Length length5 = new Length(100.0, LengthUnit.CENTIMETER);
         Length length6 = new Length(39.3701, LengthUnit.INCHES);
         System.out.println("Are length equal?" + length5.equals(length6));
+
+        System.out.println("length converter :" + length3.convertTo(LengthUnit.CENTIMETER).toString());
+
     }
 }

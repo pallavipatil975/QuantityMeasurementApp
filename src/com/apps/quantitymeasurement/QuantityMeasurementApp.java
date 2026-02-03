@@ -70,6 +70,7 @@ public class QuantityMeasurementApp {
         demonstrateFeetEquality();
         demonstrateInchesEquality();
         demonstrateFeetInchesComparison();
+        demonstrateLengthConversion(1.0, Length.LengthUnit.FEET, Length.LengthUnit.YARDS);
 
 
         demonstrateLengthComparison(1.0, Length.LengthUnit.FEET, 12.0, Length.LengthUnit.INCHES);
@@ -83,19 +84,30 @@ public class QuantityMeasurementApp {
         demonstrateLengthComparison(30.48, Length.LengthUnit.CENTIMETER,1.0, Length.LengthUnit.FEET);
     }
 
+    public static Length demonstrateLengthConversion(double v, Length.LengthUnit lengthUnit, Length.LengthUnit lengthUnit1) {
+        Length l1 = new Length(v,lengthUnit);
+        Length l2 = demonstrateLengthConversion(l1, lengthUnit1);
+        System.out.println(l2.toString());
+        return l2;
+    }
+
+    public static Length demonstrateLengthConversion(Length l1, Length.LengthUnit lengthUnit1) {
+        return l1.convertTo(lengthUnit1);
+    }
+
     public static boolean demonstrateLengthComparison(double v, Length.LengthUnit lengthUnit, double v1, Length.LengthUnit lengthUnit1) {
        boolean result = demonstrateLengthEquality(new Length(v,lengthUnit), new Length(v1, lengthUnit1));
        return result;
     }
 
-    private static void demonstrateFeetInchesComparison() {
+    public static void demonstrateFeetInchesComparison() {
         Length feet = new Length(1.0, Length.LengthUnit.FEET);
         Length inches = new Length(12.0, Length.LengthUnit.INCHES);
 
         System.out.println("feet equals inches : " + demonstrateLengthEquality(feet, inches));
     }
 
-    private static boolean demonstrateLengthEquality(Length length1, Length length2) {
+    public static boolean demonstrateLengthEquality(Length length1, Length length2) {
         boolean result = length1.equals(length2);
         return result;
     }
