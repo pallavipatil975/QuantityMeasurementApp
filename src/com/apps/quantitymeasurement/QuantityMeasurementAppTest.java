@@ -5,10 +5,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.EnumSource;
 
-import javax.swing.*;
-
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class QuantityMeasurementAppTest {
 
@@ -177,7 +174,30 @@ public class QuantityMeasurementAppTest {
         Length length = new Length(1.0, unit);
     }
 
+    @Test
     public void reflexiveSymmetricAndTranstiveProperty(){
+        Length l1 = new Length(0.3333, Length.LengthUnit.YARDS);
+        Length l2 = new Length(12.0, Length.LengthUnit.INCHES);
+        Length l3 = new Length(30.48, Length.LengthUnit.CENTIMETER);
+        Length l4 = new Length(1.0, Length.LengthUnit.FEET);
+
+       // reflexive
+        assertEquals(l1,l2);
+
+        //Symmetric
+        assertEquals(l1,l2);
+        assertEquals(l2,l1);
+        assertEquals(l3,l4);
+        assertEquals(l3,l4);
+        assertEquals(l1,l3);
+
+        //Transtive
+        assertEquals(l1,l2);
+        assertEquals(l2,l3);
+        assertEquals(l1,l3);
+        assertEquals(l3,l4);
+        assertEquals(l4,l3);
+
 
     }
 
@@ -189,10 +209,16 @@ public class QuantityMeasurementAppTest {
         assertNotEquals(length1, length2);
     }
 
-  /*  @ParameterizedTest
-    @EnumSource(Length.LengthUnit.class)
-    public void crossUnitEqualityDemonstrateMethod(double value1, Length.LengthUnit unit1){
-        boolean result =QuantityMeasurementApp.demonstrateLengthComparison(value1);
+   @Test
+    public void crossUnitEqualityDemonstrateMethod(){
+       assertAll(
+               ()-> assertTrue(QuantityMeasurementApp.demonstrateLengthComparison(1.0, Length.LengthUnit.FEET, 12.0, Length.LengthUnit.INCHES)),
+               ()-> assertTrue(QuantityMeasurementApp.demonstrateLengthComparison(1.0, Length.LengthUnit.YARDS,36.0, Length.LengthUnit.INCHES)),
+               ()-> assertTrue(QuantityMeasurementApp.demonstrateLengthComparison(100.0, Length.LengthUnit.CENTIMETER, 39.3701, Length.LengthUnit.INCHES)),
+               ()-> assertTrue(QuantityMeasurementApp.demonstrateLengthComparison(3.0, Length.LengthUnit.FEET, 1.0, Length.LengthUnit.YARDS)),
+               ()-> assertTrue(QuantityMeasurementApp.demonstrateLengthComparison(1.0, Length.LengthUnit.YARDS, 91.44, Length.LengthUnit.CENTIMETER)),
+               ()-> assertTrue(QuantityMeasurementApp.demonstrateLengthComparison(30.48, Length.LengthUnit.CENTIMETER, 1.0, Length.LengthUnit.FEET))
 
-    }*/
+       );
+    }
 }
