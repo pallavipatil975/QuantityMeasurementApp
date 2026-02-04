@@ -1,5 +1,7 @@
 package com.apps.quantitymeasurement;
 
+import java.io.LineNumberReader;
+
 public class QuantityMeasurementApp {
 
     public static class Inches {
@@ -82,7 +84,16 @@ public class QuantityMeasurementApp {
         demonstrateLengthComparison(3.0, Length.LengthUnit.FEET,1.0, Length.LengthUnit.YARDS);
 
         demonstrateLengthComparison(30.48, Length.LengthUnit.CENTIMETER,1.0, Length.LengthUnit.FEET);
+
+        demonstrateLengthAddition(new Length(1.0, Length.LengthUnit.YARDS), new Length(12, Length.LengthUnit.INCHES) );
     }
+
+    public static Length demonstrateLengthAddition(Length length, Length length1) {
+        Length sumLengthlength = length.add(length1);
+        System.out.println("addition of two units" + sumLengthlength.toString());
+        return sumLengthlength;
+    }
+
 
     public static Length demonstrateLengthConversion(double v, Length.LengthUnit lengthUnit, Length.LengthUnit lengthUnit1) {
         Length l1 = new Length(v,lengthUnit);
@@ -111,6 +122,7 @@ public class QuantityMeasurementApp {
         boolean result = length1.equals(length2);
         return result;
     }
+
 
 
 }

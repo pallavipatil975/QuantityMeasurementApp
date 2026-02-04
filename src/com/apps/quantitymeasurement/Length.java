@@ -54,6 +54,22 @@ public class Length {
                         thatLength.convertToBaseUnit()) == 0;
     }
 
+    public Length add(Length thatLength){
+
+        if(thatLength == null){
+            throw new IllegalArgumentException("null is not allowed, please enter valid number");
+        }
+        Length length1 =  convertFromBaseToTargetUnit(this, thatLength);
+        double length2 = length1.value +  this.value;;
+        return new Length(length2, this.unit);
+    }
+
+    public Length convertFromBaseToTargetUnit(Length length, Length thatLength) {
+        
+        return thatLength.convertTo(length.unit);
+    }
+
+
     @Override
     public String toString() {
         return "Length{" +
@@ -87,6 +103,8 @@ public class Length {
         System.out.println("Are length equal?" + length5.equals(length6));
 
         System.out.println("length converter :" + length3.convertTo(LengthUnit.CENTIMETER).toString());
+
+        System.out.println("addition of 2 length units : " + length1.add(length3).toString());
 
     }
 }
