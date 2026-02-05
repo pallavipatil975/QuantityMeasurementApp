@@ -37,6 +37,7 @@ public class Length {
         return Math.round(inches* 100.00) / 100.0;
     }
 
+    // converted Length into targetUnit
     public Length convertTo(LengthUnit tragetUnit){
         if(tragetUnit == null){
             throw new IllegalArgumentException("target unit must not be null");
@@ -54,6 +55,7 @@ public class Length {
                         thatLength.convertToBaseUnit()) == 0;
     }
 
+    //addition of two units and converted into first unit
     public Length add(Length thatLength){
 
         if(thatLength == null){
@@ -63,14 +65,17 @@ public class Length {
         double length2 = length1.value +  this.value;;
         return new Length(length2, this.unit);
     }
+
+    //addition of two length values and converted into specified target unit
     public Length addAndConvert(Length value, LengthUnit targetUnit){
          return this.add(value, targetUnit);
     }
 
+    // addition of current value with new value and converted into target unit
     private Length add(Length value, LengthUnit targetUnit) {
            return this.add(value).convertTo(targetUnit);
     }
-
+    // converted from base unit to traget unit
     public Length convertFromBaseToTargetUnit(Length length, Length thatLength) {
         
         return thatLength.convertTo(length.unit);
