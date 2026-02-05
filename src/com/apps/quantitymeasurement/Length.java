@@ -63,6 +63,13 @@ public class Length {
         double length2 = length1.value +  this.value;;
         return new Length(length2, this.unit);
     }
+    public Length addAndConvert(Length value, LengthUnit targetUnit){
+         return this.add(value, targetUnit);
+    }
+
+    private Length add(Length value, LengthUnit targetUnit) {
+           return this.add(value).convertTo(targetUnit);
+    }
 
     public Length convertFromBaseToTargetUnit(Length length, Length thatLength) {
         
@@ -105,6 +112,9 @@ public class Length {
         System.out.println("length converter :" + length3.convertTo(LengthUnit.CENTIMETER).toString());
 
         System.out.println("addition of 2 length units : " + length1.add(length3).toString());
+
+        System.out.println("addition of 2 length units with conversion into target : " + length1.addAndConvert(length3, LengthUnit.CENTIMETER).toString());
+
 
     }
 }
