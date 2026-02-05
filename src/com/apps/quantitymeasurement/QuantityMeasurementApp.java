@@ -108,6 +108,7 @@ public class QuantityMeasurementApp {
 
     public static boolean demonstrateLengthComparison(double v, Length.LengthUnit lengthUnit, double v1, Length.LengthUnit lengthUnit1) {
        boolean result = demonstrateLengthEquality(new Length(v,lengthUnit), new Length(v1, lengthUnit1));
+       System.out.println(result);
        return result;
     }
 
