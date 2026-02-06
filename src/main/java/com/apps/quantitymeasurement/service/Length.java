@@ -1,5 +1,5 @@
-package main.java.com.apps.quantitymeasurement;
-
+package main.java.com.apps.quantitymeasurement.service;
+import main.java.com.apps.quantitymeasurement.constant.LengthUnit;
 import java.util.Objects;
 
 public class Length {
@@ -7,22 +7,7 @@ public class Length {
     private double value;
     private LengthUnit unit;
 
-    public enum LengthUnit {
-        FEET(12.0),
-        INCHES(1.0),
-        YARDS(36.0),
-        CENTIMETER(0.393701);
 
-        private final double conversionFactor;
-
-        LengthUnit(double conversionFactor) {
-            this.conversionFactor = conversionFactor;
-        }
-
-        public double getConversionFactor() {
-            return conversionFactor;
-        }
-    }
 
     // constructor to initialize length value and unit
     public Length(double value, LengthUnit unit) {
