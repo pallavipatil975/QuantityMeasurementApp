@@ -21,6 +21,7 @@ public enum LengthUnit {
             return Math.round(inches * 100.0) / 100.0;
         }
 
+
         public double convertFromBaseUnit(double value, LengthUnit targetUnit){
 
             double inches = value *  this.getConversionFactor();

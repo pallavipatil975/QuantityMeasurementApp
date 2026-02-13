@@ -245,10 +245,8 @@ public class QuantityMeasurementAppTest {
         Length length2 = new Length(12.0,  LengthUnit.INCHES);
 
         Length sumLength = QuantityMeasurementApp.demonstrateLengthAddition(length1, length2);
-        System.out.println("sumLength :" +sumLength);
-
         Length expectedLength = new Length(2.0,  LengthUnit.FEET);
-        System.out.println("expectedLength :" +sumLength);
+
         assertTrue(QuantityMeasurementApp.demonstrateLengthEquality(sumLength, expectedLength));
     }
 
@@ -258,12 +256,8 @@ public class QuantityMeasurementAppTest {
         Length length2 = new Length(12.0,  LengthUnit.INCHES);
 
         Length sumLength = QuantityMeasurementApp.demonstrateLengthAddition(length1, length2,  LengthUnit.INCHES);
-        System.out.println("sumLength : " + sumLength);
 
         Length expectedLength = new Length(24.0,  LengthUnit.INCHES);
-
-        System.out.println("expectedLength : " + expectedLength);
-
         assertTrue(QuantityMeasurementApp.demonstrateLengthEquality(sumLength, expectedLength));
     }
 }

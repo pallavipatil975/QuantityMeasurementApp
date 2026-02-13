@@ -103,7 +103,6 @@ public class QuantityMeasurementApp {
         return sumLength;
     }
 
-
     public static Length demonstrateLengthConversion(double v, LengthUnit lengthUnit, LengthUnit lengthUnit1) {
         Length l1 = new Length(v, lengthUnit);
         Length l2 = demonstrateLengthConversion(l1, lengthUnit1);

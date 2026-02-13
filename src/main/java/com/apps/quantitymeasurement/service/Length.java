@@ -85,6 +85,5 @@ public class Length {
         System.out.println("convertToBaseUnit : " + LengthUnit.YARDS.convertToBaseUnit(3.0));
 
         System.out.println("convertFromBaseUnit : " + LengthUnit.INCHES.convertFromBaseUnit(1.0, LengthUnit.FEET));
-
     }
 }
