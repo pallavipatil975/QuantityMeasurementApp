@@ -4,51 +4,33 @@ import java.util.Objects;
 
 public class Length {
 
-    private double value;
-    private LengthUnit unit;
-
-
+    public double value;
+    public LengthUnit lengthUnit;
 
     // constructor to initialize length value and unit
     public Length(double value, LengthUnit unit) {
         this.value = value;
-        this.unit = unit;
-    }
-
-    // convert the length value to base unit(inches) and round off to two decimal places
-    private double convertToBaseUnit() {
-
-        double inches =  value * unit.getConversionFactor();
-        return Math.round(inches* 100.00) / 100.0;
-    }
-
-    // converted Length into targetUnit
-    public Length convertTo(LengthUnit tragetUnit){
-        if(tragetUnit == null){
-            throw new IllegalArgumentException("target unit must not be null");
-        }
-        double inches = convertToBaseUnit();
-      double convertedValue = inches / tragetUnit.getConversionFactor();
-       convertedValue =  Math.round(convertedValue*100.00)/100.0;
-        return new Length(convertedValue, tragetUnit);
+        this.lengthUnit = unit;
     }
 
     //compare two length objects
     public boolean compare(Length thatLength) {
         return Double.
-                compare(this.convertToBaseUnit(),
-                        thatLength.convertToBaseUnit()) == 0;
+                compare(this.lengthUnit.convertToBaseUnit(this.value),
+                        thatLength.lengthUnit.convertToBaseUnit(thatLength.value)) == 0;
     }
 
     //addition of two units and converted into first unit
     public Length add(Length thatLength){
-
         if(thatLength == null){
             throw new IllegalArgumentException("null is not allowed, please enter valid number");
         }
-        Length length1 =  convertFromBaseToTargetUnit(this, thatLength);
-        double length2 = length1.value +  this.value;;
-        return new Length(length2, this.unit);
+        double inchesThis =  this.lengthUnit.convertToBaseUnit(this.value);
+        double inchesThat = thatLength.lengthUnit.convertToBaseUnit(thatLength.value);
+        double sumInches = inchesThis + inchesThat;
+        double sumInThisUnit = sumInches / this.lengthUnit.getConversionFactor();
+        sumInThisUnit = Math.round(sumInThisUnit * 100.0) / 100.0;
+        return new Length(sumInThisUnit, this.lengthUnit);
     }
 
     //addition of two length values and converted into specified target unit
@@ -58,20 +40,15 @@ public class Length {
 
     // addition of current value with new value and converted into target unit
     private Length add(Length value, LengthUnit targetUnit) {
-           return this.add(value).convertTo(targetUnit);
+           Length l1 = this.add(value);
+           return new Length(l1.lengthUnit.convertFromBaseUnit(l1.value, targetUnit),targetUnit);
     }
-    // converted from base unit to traget unit
-    public Length convertFromBaseToTargetUnit(Length length, Length thatLength) {
-        
-        return thatLength.convertTo(length.unit);
-    }
-
 
     @Override
     public String toString() {
         return "Length{" +
                 "value=" + value +
-                ", unit=" + unit +
+                ", unit=" + lengthUnit +
                 '}';
     }
 
@@ -82,7 +59,7 @@ public class Length {
         return compare(length);
     }
     public int hashCode(){
-        return Objects.hash(convertToBaseUnit());
+        return Objects.hash(this.lengthUnit.convertToBaseUnit(this.value));
     }
 
     public static void main(String[] args) {
@@ -97,14 +74,17 @@ public class Length {
 
         Length length5 = new Length(100.0, LengthUnit.CENTIMETER);
         Length length6 = new Length(39.3701, LengthUnit.INCHES);
-        System.out.println("Are length equal?" + length5.equals(length6));
+        System.out.println("Are length equal : " + length5.equals(length6));
 
-        System.out.println("length converter :" + length3.convertTo(LengthUnit.CENTIMETER).toString());
+        System.out.println("length converter :" + length3.lengthUnit.convertFromBaseUnit(length3.value, LengthUnit.FEET));
 
         System.out.println("addition of 2 length units : " + length1.add(length3).toString());
 
         System.out.println("addition of 2 length units with conversion into target : " + length1.addAndConvert(length3, LengthUnit.CENTIMETER).toString());
 
+        System.out.println("convertToBaseUnit : " + LengthUnit.YARDS.convertToBaseUnit(3.0));
+
+        System.out.println("convertFromBaseUnit : " + LengthUnit.INCHES.convertFromBaseUnit(1.0, LengthUnit.FEET));
 
     }
 }

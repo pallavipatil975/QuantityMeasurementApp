@@ -226,16 +226,15 @@ public class QuantityMeasurementAppTest {
 
     @Test
     public void convertFeetToInches() {
-        Length lengthInInches = QuantityMeasurementApp.demonstrateLengthConversion(3.0,  LengthUnit.FEET,  LengthUnit.INCHES);
-        Length expectedLength = new Length(36.0,  LengthUnit.INCHES);
+        Length lengthInInches = QuantityMeasurementApp.demonstrateLengthConversion(1.0,  LengthUnit.FEET,  LengthUnit.INCHES);
+        Length expectedLength = new Length(12.0,  LengthUnit.INCHES);
         assertTrue(QuantityMeasurementApp.demonstrateLengthEquality(lengthInInches, expectedLength));
     }
 
     @Test
     public void convertYardToInchesUsingOverloadedMethod() {
          Length lengthInYards = new Length(2.0,  LengthUnit.YARDS);
-        Length lengthInInches = QuantityMeasurementApp.demonstrateLengthConversion
-                (lengthInYards, LengthUnit.INCHES);
+        Length lengthInInches = QuantityMeasurementApp.demonstrateLengthConversion(lengthInYards, LengthUnit.INCHES);
         Length expectedLength = new Length(72.0,  LengthUnit.INCHES);
 
         assertTrue(QuantityMeasurementApp.demonstrateLengthEquality(lengthInInches, expectedLength));
@@ -244,17 +243,27 @@ public class QuantityMeasurementAppTest {
     public void addFeetAndInches(){
         Length length1 = new Length(1.0,  LengthUnit.FEET);
         Length length2 = new Length(12.0,  LengthUnit.INCHES);
+
         Length sumLength = QuantityMeasurementApp.demonstrateLengthAddition(length1, length2);
+        System.out.println("sumLength :" +sumLength);
+
         Length expectedLength = new Length(2.0,  LengthUnit.FEET);
+        System.out.println("expectedLength :" +sumLength);
         assertTrue(QuantityMeasurementApp.demonstrateLengthEquality(sumLength, expectedLength));
     }
 
     @Test
     public void addFeetAndInchesWithTargetUnitInches(){
-        Length length1 = new Length(2.0,  LengthUnit.FEET);
+        Length length1 = new Length(1.0,  LengthUnit.FEET);
         Length length2 = new Length(12.0,  LengthUnit.INCHES);
+
         Length sumLength = QuantityMeasurementApp.demonstrateLengthAddition(length1, length2,  LengthUnit.INCHES);
-        Length expectedLength = new Length(36.0,  LengthUnit.INCHES);
+        System.out.println("sumLength : " + sumLength);
+
+        Length expectedLength = new Length(24.0,  LengthUnit.INCHES);
+
+        System.out.println("expectedLength : " + expectedLength);
+
         assertTrue(QuantityMeasurementApp.demonstrateLengthEquality(sumLength, expectedLength));
     }
 }

@@ -9,7 +9,6 @@ public class QuantityMeasurementApp {
     public static class Inches {
 
         private final double inch;
-
         public Inches(double inch) {
             this.inch = inch;
         }
@@ -77,19 +76,19 @@ public class QuantityMeasurementApp {
         demonstrateLengthConversion(1.0, LengthUnit.FEET, LengthUnit.YARDS);
 
 
-        demonstrateLengthComparison(1.0, LengthUnit.FEET, 12.0, LengthUnit.INCHES);
+        demonstrateLengthComparison(12.0, LengthUnit.FEET, 1.0, LengthUnit.INCHES);
 
-        demonstrateLengthComparison(1.0, LengthUnit.YARDS,36.0, LengthUnit.INCHES);
+        demonstrateLengthComparison(1.0, LengthUnit.YARDS, 36.0, LengthUnit.INCHES);
 
         demonstrateLengthComparison(100.0, LengthUnit.CENTIMETER, 39.3701, LengthUnit.INCHES);
 
-        demonstrateLengthComparison(3.0, LengthUnit.FEET,1.0, LengthUnit.YARDS);
+        demonstrateLengthComparison(1.0, LengthUnit.FEET, 0.3333, LengthUnit.YARDS);
 
-        demonstrateLengthComparison(30.48, LengthUnit.CENTIMETER,1.0, LengthUnit.FEET);
+        demonstrateLengthComparison(30.48, LengthUnit.CENTIMETER, 1.0, LengthUnit.FEET);
         demonstrateLengthAddition(new Length(1.0, LengthUnit.YARDS), new Length(12, LengthUnit.INCHES));
         demonstrateLengthAddition(new Length(1.0, LengthUnit.CENTIMETER),
-                                  new Length(12, LengthUnit.INCHES),
-                                  LengthUnit.YARDS);
+                new Length(12, LengthUnit.INCHES),
+                LengthUnit.YARDS);
     }
 
     public static Length demonstrateLengthAddition(Length length1, Length length2, LengthUnit targetUnit) {
@@ -106,20 +105,20 @@ public class QuantityMeasurementApp {
 
 
     public static Length demonstrateLengthConversion(double v, LengthUnit lengthUnit, LengthUnit lengthUnit1) {
-        Length l1 = new Length(v,lengthUnit);
+        Length l1 = new Length(v, lengthUnit);
         Length l2 = demonstrateLengthConversion(l1, lengthUnit1);
         System.out.println(l2.toString());
         return l2;
     }
 
     public static Length demonstrateLengthConversion(Length l1, LengthUnit lengthUnit1) {
-        return l1.convertTo(lengthUnit1);
+        return new Length(l1.lengthUnit.convertFromBaseUnit(l1.value, lengthUnit1), lengthUnit1);
     }
 
     public static boolean demonstrateLengthComparison(double v, LengthUnit lengthUnit, double v1, LengthUnit lengthUnit1) {
-       boolean result = demonstrateLengthEquality(new Length(v,lengthUnit), new Length(v1, lengthUnit1));
-       System.out.println(result);
-       return result;
+        boolean result = demonstrateLengthEquality(new Length(v, lengthUnit), new Length(v1, lengthUnit1));
+        System.out.println(result);
+        return result;
     }
 
     public static void demonstrateFeetInchesComparison() {
@@ -133,7 +132,6 @@ public class QuantityMeasurementApp {
         boolean result = length1.equals(length2);
         return result;
     }
-
 
 
 }
