@@ -1,5 +1,7 @@
 package main.java.com.apps.quantitymeasurement.service;
+
 import main.java.com.apps.quantitymeasurement.constant.LengthUnit;
+
 import java.util.Objects;
 
 public class Length {
@@ -9,6 +11,9 @@ public class Length {
 
     // constructor to initialize length value and unit
     public Length(double value, LengthUnit unit) {
+        if(unit ==  null){
+            throw new IllegalArgumentException("LengthUnit cannot be null");
+        }
         this.value = value;
         this.lengthUnit = unit;
     }
@@ -21,11 +26,11 @@ public class Length {
     }
 
     //addition of two units and converted into first unit
-    public Length add(Length thatLength){
-        if(thatLength == null){
+    public Length add(Length thatLength) {
+        if (thatLength == null) {
             throw new IllegalArgumentException("null is not allowed, please enter valid number");
         }
-        double inchesThis =  this.lengthUnit.convertToBaseUnit(this.value);
+        double inchesThis = this.lengthUnit.convertToBaseUnit(this.value);
         double inchesThat = thatLength.lengthUnit.convertToBaseUnit(thatLength.value);
         double sumInches = inchesThis + inchesThat;
         double sumInThisUnit = sumInches / this.lengthUnit.getConversionFactor();
@@ -34,14 +39,14 @@ public class Length {
     }
 
     //addition of two length values and converted into specified target unit
-    public Length addAndConvert(Length value, LengthUnit targetUnit){
-         return this.add(value, targetUnit);
+    public Length addAndConvert(Length value, LengthUnit targetUnit) {
+        return this.add(value, targetUnit);
     }
 
     // addition of current value with new value and converted into target unit
     private Length add(Length value, LengthUnit targetUnit) {
-           Length l1 = this.add(value);
-           return new Length(l1.lengthUnit.convertFromBaseUnit(l1.value, targetUnit),targetUnit);
+        Length l1 = this.add(value);
+        return new Length(l1.lengthUnit.convertFromBaseUnit(l1.value, targetUnit), targetUnit);
     }
 
     @Override
@@ -58,7 +63,8 @@ public class Length {
         Length length = (Length) o;
         return compare(length);
     }
-    public int hashCode(){
+
+    public int hashCode() {
         return Objects.hash(this.lengthUnit.convertToBaseUnit(this.value));
     }
 

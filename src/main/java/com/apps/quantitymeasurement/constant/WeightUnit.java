@@ -1,16 +1,16 @@
 package main.java.com.apps.quantitymeasurement.constant;
 
 public enum WeightUnit {
-    //conversion fatctor to the base unit (grams)
 
-    MILLIGRAM(0.001),
-    GRAM(1.0),
-    KILOGRAM(1000.0),
-    POUND(453.592),
-    TONNE(1_000_000.0);
+    MILLIGRAM(0.001),     // 1 mg = 0.001 g
+    GRAM(1.0),            // base unit
+    KILOGRAM(1000.0),     // 1 kg = 1000 g
+    POUND(453.59237),     // 1 lb = 453.59237 g  (more precise)
+    TONNE(1_000_000.0);   // 1 t = 1,000,000 g
 
-    // conversion factor to the base unit (grams)
+
     private final double conversionFactor;
+
 
     WeightUnit(double conversionFactor) {
         this.conversionFactor = conversionFactor;
@@ -20,8 +20,19 @@ public enum WeightUnit {
         return conversionFactor;
     }
 
-    public double convertFromBaseUnit(double baseValue){
-        return Math.round((baseValue / this.conversionFactor) * 100.0) / 100.0;
+    // baseunit = 1.0 gram
+    public double convertToBaseUnit(double value) {
+        double gram = value * getConversionFactor();
+        double result = Math.round(gram * 100.0) / 100.0;
+       // System.out.println("result of conver to base unit is :" + result);
+        return result;
     }
-}
 
+    public double convertFromBaseUnit(double value, WeightUnit targetUnit) {
+
+        double gram = value * this.getConversionFactor(); // 1000(kg) * 1gm = 1000 gm
+        double convertedFromBaseUnit = gram / targetUnit.getConversionFactor(); // first convert to base unit and then convert// 1000 / 453.592 (pound) =
+        return Math.round(convertedFromBaseUnit * 100.0) / 100.0;
+    }
+
+}
