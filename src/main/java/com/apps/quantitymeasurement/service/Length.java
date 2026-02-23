@@ -33,9 +33,9 @@ public class Length {
         double inchesThis = this.lengthUnit.convertToBaseUnit(this.value);
         double inchesThat = thatLength.lengthUnit.convertToBaseUnit(thatLength.value);
         double sumInches = inchesThis + inchesThat;
-        double sumInThisUnit = sumInches / this.lengthUnit.getConversionFactor();
-        sumInThisUnit = Math.round(sumInThisUnit * 100.0) / 100.0;
-        return new Length(sumInThisUnit, this.lengthUnit);
+     //   double sumInThisUnit = sumInches / this.lengthUnit.getConversionFactor();
+     //   double sumInThisUnit = Math.round(sumInches  / this.lengthUnit.getConversionFactor())* 100.0 / 100.0;
+        return new Length(sumInches, LengthUnit.INCHES);
     }
 
     //addition of two length values and converted into specified target unit
@@ -46,7 +46,7 @@ public class Length {
     // addition of current value with new value and converted into target unit
     private Length add(Length value, LengthUnit targetUnit) {
         Length l1 = this.add(value);
-        return new Length(l1.lengthUnit.convertFromBaseUnit(l1.value, targetUnit), targetUnit);
+        return new Length(targetUnit.convertFromBaseUnit(l1.value), targetUnit);
     }
 
     @Override
@@ -82,7 +82,7 @@ public class Length {
         Length length6 = new Length(39.3701, LengthUnit.INCHES);
         System.out.println("Are length equal : " + length5.equals(length6));
 
-        System.out.println("length converter :" + length3.lengthUnit.convertFromBaseUnit(length3.value, LengthUnit.FEET));
+        System.out.println("length converter :" +  LengthUnit.FEET.convertFromBaseUnit(length3.value));
 
         System.out.println("addition of 2 length units : " + length1.add(length3).toString());
 
@@ -90,6 +90,6 @@ public class Length {
 
         System.out.println("convertToBaseUnit : " + LengthUnit.YARDS.convertToBaseUnit(3.0));
 
-        System.out.println("convertFromBaseUnit : " + LengthUnit.INCHES.convertFromBaseUnit(1.0, LengthUnit.FEET));
+        System.out.println("convertFromBaseUnit : " +  LengthUnit.FEET.convertFromBaseUnit(1.0));
     }
 }

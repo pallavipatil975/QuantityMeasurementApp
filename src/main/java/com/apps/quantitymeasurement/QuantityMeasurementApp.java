@@ -118,8 +118,9 @@ public class QuantityMeasurementApp {
     }
 
     public static Weight demonstrateWeightConversion(Weight w1, WeightUnit weightUnit) {
-        return new Weight(w1.weightUnit.convertFromBaseUnit(w1.value, weightUnit), weightUnit);
+        return new Weight(weightUnit.convertFromBaseUnit(w1.weightUnit.convertToBaseUnit(w1.value)) ,weightUnit);
     }
+
 
     public static Weight demonstrateWeightComparison(double v, WeightUnit fromUnit, WeightUnit targetUnit) {
         Weight w1 = new Weight(v, fromUnit);
@@ -154,7 +155,7 @@ public class QuantityMeasurementApp {
     }
 
     public static Length demonstrateLengthConversion(Length l1, LengthUnit lengthUnit1) {
-        return new Length(l1.lengthUnit.convertFromBaseUnit(l1.value, lengthUnit1), lengthUnit1);
+        return new Length(lengthUnit1.convertFromBaseUnit(l1.lengthUnit.convertToBaseUnit(l1.value)), lengthUnit1);
     }
 
     public static boolean demonstrateLengthComparison(double v, LengthUnit lengthUnit, double v1, LengthUnit lengthUnit1) {
