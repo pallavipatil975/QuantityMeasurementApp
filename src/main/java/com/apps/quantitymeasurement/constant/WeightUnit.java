@@ -22,17 +22,19 @@ public enum WeightUnit {
 
     // baseunit = 1.0 gram
     public double convertToBaseUnit(double value) {
-        double gram = value * getConversionFactor();
+       /* double gram = value * getConversionFactor();
         double result = Math.round(gram * 100.0) / 100.0;
        // System.out.println("result of conver to base unit is :" + result);
-        return result;
+        return result;*/
+        return Math.round(value * getConversionFactor() * 100.0) / 100.0;
     }
 
-    public double convertFromBaseUnit(double value, WeightUnit targetUnit) {
+    public double convertFromBaseUnit(double value) {
 
-        double gram = value * this.getConversionFactor(); // 1000(kg) * 1gm = 1000 gm
+        /*double gram = value * this.getConversionFactor(); // 1000(kg) * 1gm = 1000 gm
         double convertedFromBaseUnit = gram / targetUnit.getConversionFactor(); // first convert to base unit and then convert// 1000 / 453.592 (pound) =
-        return Math.round(convertedFromBaseUnit * 100.0) / 100.0;
-    }
+        return Math.round(convertedFromBaseUnit * 100.0) / 100.0;*/
+
+        return Math.round(value / getConversionFactor() * 100.0) / 100.0;    }
 
 }

@@ -30,18 +30,17 @@ public class Weight {
         double thisGram = this.weightUnit.convertToBaseUnit(this.value);
         double thatGram = weightUnit1.weightUnit.convertToBaseUnit(weightUnit1.value);
         double grams = thisGram + thatGram;
-
-        System.out.println("grams : " + grams);
-        double sumInThisUnit = grams / this.weightUnit.getConversionFactor();
+        /*double sumInThisUnit = grams / this.weightUnit.getConversionFactor();
         sumInThisUnit = Math.round(sumInThisUnit * 100.0) / 100.0;
-
-        return new Weight(sumInThisUnit, this.weightUnit);
+        return new Weight(sumInThisUnit, this.weightUnit);*/
+        return new Weight(grams, WeightUnit.GRAM);
     }
 
     private Weight add(Weight value, WeightUnit targetUnit) {
         Weight weight1 = this.add(value);
-        return new Weight(weight1.weightUnit.convertFromBaseUnit(weight1.value, targetUnit), targetUnit);
+        return new Weight(targetUnit.convertFromBaseUnit(weight1.value), targetUnit);
     }
+
 
     public Weight addAndConvert(Weight value, WeightUnit tragetUnit) {
         return this.add(value, tragetUnit);
@@ -83,7 +82,7 @@ public class Weight {
         Weight weight8 = new Weight(1.0, WeightUnit.MILLIGRAM);
         System.out.println("are weight7 and weight8 are equals : " + weight7.equals(weight8));
 
-        System.out.println("weight converter :" + weight3.weightUnit.convertFromBaseUnit(weight3.value, WeightUnit.POUND));
+        System.out.println("weight converter :" + weight3.weightUnit.convertFromBaseUnit(weight3.value));
 
         System.out.println("addition of 2...................... weight units : " + weight1.add(weight2).toString()); // return weight1's  weightunit
 
@@ -94,7 +93,7 @@ public class Weight {
 
         System.out.println("convertToBaseUnit : " + WeightUnit.KILOGRAM.convertToBaseUnit(3.0));
 
-        System.out.println("convertFromBaseUnit : " + WeightUnit.MILLIGRAM.convertFromBaseUnit(1.0, WeightUnit.GRAM));
+        System.out.println("convertFromBaseUnit : " + WeightUnit.MILLIGRAM.convertFromBaseUnit(1.0));
     }
 
 }
