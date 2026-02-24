@@ -1,6 +1,4 @@
 package main.java.com.apps.quantitymeasurement.service;
-
-import main.java.com.apps.quantitymeasurement.constant.LengthUnit;
 import main.java.com.apps.quantitymeasurement.constant.WeightUnit;
 
 import java.util.Objects;

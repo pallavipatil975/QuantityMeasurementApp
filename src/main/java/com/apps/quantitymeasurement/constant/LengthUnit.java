@@ -1,6 +1,8 @@
 package main.java.com.apps.quantitymeasurement.constant;
 
-public enum LengthUnit {
+import main.java.com.apps.quantitymeasurement.service.Imeasurable;
+
+public enum LengthUnit implements Imeasurable {
     FEET(12.0),
     INCHES(1.0),
     YARDS(36.0),
@@ -23,6 +25,11 @@ public enum LengthUnit {
 
     public double convertFromBaseUnit(double value) {
         return Math.round(value / getConversionFactor() * 100.0) / 100.0;
+    }
+
+    @Override
+    public String getUnitName() {
+        return this.name();
     }
 }
 

@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/QuantityMeasurementApp.iml" filepath="$PROJECT_DIR$/QuantityMeasurementApp.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../../../../BridgeLabz Training/quantitymeasurementapppune/quantitymeasurementapppune.iml" filepath="$PROJECT_DIR$/../../../../BridgeLabz Training/quantitymeasurementapppune/quantitymeasurementapppune.iml" />
     </modules>
   </component>
 </project>
