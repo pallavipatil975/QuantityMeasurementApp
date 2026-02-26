@@ -1,5 +1,8 @@
 package main.java.com.apps.quantitymeasurement.service;
 
+import main.java.com.apps.quantitymeasurement.constant.LengthUnit;
+import main.java.com.apps.quantitymeasurement.constant.VolumeUnit;
+
 public class Quantity<U extends Imeasurable> {
     private double value;
     private U unit;
@@ -64,5 +67,24 @@ public class Quantity<U extends Imeasurable> {
         if (o == null || getClass() != o.getClass()) return false;
         Quantity<U> u = (Quantity<U>) o;
         return compare(u);
+    }
+
+    public static void main(String[] args) {
+        Quantity<LengthUnit> lengthInFeet = new Quantity<>(1.0, LengthUnit.FEET);
+        Quantity<LengthUnit> lengthInInches = new Quantity<>(12.0, LengthUnit.INCHES);
+        boolean isEqual = lengthInFeet.equals(lengthInInches);
+     //   System.out.println("are feet and inches length equals : " + isEqual);
+
+        Quantity<VolumeUnit> volumeInLiter = new Quantity<>(1.0, VolumeUnit.LITRE);
+        Quantity<VolumeUnit> volumeInMilliliter = new Quantity<>(1000.0, VolumeUnit.MILLILITER);
+        boolean isEqual1 = volumeInLiter.equals(volumeInMilliliter);
+        System.out.println("are liter and milliliter Volume equals : " + isEqual1);
+
+        Quantity<VolumeUnit> volumeInGallon = new Quantity<>(0.264172, VolumeUnit.GALLON);
+        boolean isEqual2 = volumeInLiter.equals(volumeInGallon);
+        System.out.println("are liter and gallon Volume equals : " + isEqual2);
+
+        boolean isEqual3 = volumeInMilliliter.equals(volumeInGallon);
+        System.out.println("are milliliter and gallon Volume equals : " + isEqual3);
     }
 }
