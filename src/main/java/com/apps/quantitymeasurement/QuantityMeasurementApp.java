@@ -113,6 +113,15 @@ public class QuantityMeasurementApp {
         System.out.println("Liter and Milliliter comparison : " + demonstrateComparison(1.0, VolumeUnit.LITRE, 1000.0, VolumeUnit.MILLILITER));
         System.out.println("Milliliter and liter addition to liter : " + demonstrateAddition(new Quantity<>(1000.0, VolumeUnit.MILLILITER),
                 new Quantity<>(1.0, VolumeUnit.LITRE), VolumeUnit.LITRE));
+
+        Quantity<WeightUnit> q1 = new Quantity<>(2.0, WeightUnit.KILOGRAM);
+        Quantity<WeightUnit> q2 = new Quantity<>(4.0, WeightUnit.KILOGRAM);
+        System.out.println(" demonstrate Subtraction " + demonstrateSubtraction(q1, q2));
+
+        System.out.println(" demonstrate 3 parameter Subtraction " + demonstrateSubtraction(q1, q2, WeightUnit.KILOGRAM));
+
+        System.out.println(" demonstrate division " + demonstrateDivision(q2, q1));
+
     }
 
     public static void demonstrateFeetInchesComparison() {
@@ -121,20 +130,21 @@ public class QuantityMeasurementApp {
 
         System.out.println("feet equals inches : " + demonstrateEquality(feet, inches));
     }
-// Generic methods
+
+    // Generic methods
     public static <U extends Imeasurable> boolean demonstrateEquality(Quantity<U> w1, Quantity<U> w2) {
         return w1.equals(w2);
     }
 
     public static <U extends Imeasurable> boolean demonstrateComparison(double v1, U fromUnit, double v2, U targetUnit) {
         Quantity<U> q1 = new Quantity<>(v1, fromUnit);
-        Quantity<U> q2 = new  Quantity<>(v2, targetUnit);
+        Quantity<U> q2 = new Quantity<>(v2, targetUnit);
         return q1.equals(q2);
     }
 
-    public static<U extends Imeasurable> Quantity<U> demonstrateConversion(double v, U fromUnit, U targetUnit) {
-       Quantity<U> q1 = demonstrateConversion(new Quantity<>(v, fromUnit), targetUnit);
-       return q1;
+    public static <U extends Imeasurable> Quantity<U> demonstrateConversion(double v, U fromUnit, U targetUnit) {
+        Quantity<U> q1 = demonstrateConversion(new Quantity<>(v, fromUnit), targetUnit);
+        return q1;
     }
 
     public static <U extends Imeasurable> Quantity<U> demonstrateConversion(Quantity<U> w1, U weightUnit) {
@@ -147,5 +157,17 @@ public class QuantityMeasurementApp {
 
     public static <U extends Imeasurable> Quantity<U> demonstrateAddition(Quantity<U> q1, Quantity<U> q2, U targetUnit) {
         return q1.add(q2, targetUnit);
+    }
+
+    public static <U extends Imeasurable> Quantity<U> demonstrateSubtraction(Quantity<U> q1, Quantity<U> q2) {
+        return q1.subtract(q2);
+    }
+
+    public static <U extends Imeasurable> Quantity<U> demonstrateSubtraction(Quantity<U> q1, Quantity<U> q2, U targetUnit) {
+        return q1.subtract(q2, targetUnit);
+    }
+
+    public static <U extends Imeasurable> double demonstrateDivision(Quantity<U> q1, Quantity<U> q2) {
+        return q1.divide(q2);
     }
 }

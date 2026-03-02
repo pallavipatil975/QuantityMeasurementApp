@@ -22,7 +22,6 @@ public enum LengthUnit implements Imeasurable {
         return Math.round(value * getConversionFactor() * 100.0) / 100.0;
     }
 
-
     public double convertFromBaseUnit(double value) {
         return Math.round(value / getConversionFactor() * 100.0) / 100.0;
     }
