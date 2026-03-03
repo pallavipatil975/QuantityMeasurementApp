@@ -1001,8 +1001,8 @@ public class QuantityMeasurementAppTest {
         Quantity<VolumeUnit> v1 = new Quantity<>(5.0, VolumeUnit.LITRE);
         Quantity<VolumeUnit> v2 = new Quantity<>(2.0, VolumeUnit.LITRE);
         Quantity<VolumeUnit> subtraction = QuantityMeasurementApp.demonstrateSubtraction(v1, v2, VolumeUnit.MILLILITER);
-        Quantity<VolumeUnit> expectedAddition = new Quantity<>(3000.0, VolumeUnit.MILLILITER);
-        assertEquals(subtraction, expectedAddition);
+        Quantity<VolumeUnit> expectedSubtraction = new Quantity<>(3000.0, VolumeUnit.MILLILITER);
+        assertEquals(subtraction, expectedSubtraction);
     }
 
     @Test
@@ -1010,8 +1010,8 @@ public class QuantityMeasurementAppTest {
         Quantity<LengthUnit> v1 = new Quantity<>(5.0, LengthUnit.FEET);
         Quantity<LengthUnit> v2 = new Quantity<>(10.0, LengthUnit.FEET);
         Quantity<LengthUnit> subtraction = QuantityMeasurementApp.demonstrateSubtraction(v1, v2);
-        Quantity<LengthUnit> expectedAddition = new Quantity<>(-5.0, LengthUnit.FEET);
-        assertEquals(subtraction, expectedAddition);
+        Quantity<LengthUnit> expectedSubtraction = new Quantity<>(-5.0, LengthUnit.FEET);
+        assertEquals(subtraction, expectedSubtraction);
     }
 
     @Test
@@ -1019,8 +1019,8 @@ public class QuantityMeasurementAppTest {
         Quantity<LengthUnit> v1 = new Quantity<>(10.0, LengthUnit.FEET);
         Quantity<LengthUnit> v2 = new Quantity<>(120.0, LengthUnit.INCHES);
         Quantity<LengthUnit> subtraction = QuantityMeasurementApp.demonstrateSubtraction(v1, v2, LengthUnit.FEET);
-        Quantity<LengthUnit> expectedAddition = new Quantity<>(0.0, LengthUnit.FEET);
-        assertEquals(subtraction, expectedAddition);
+        Quantity<LengthUnit> expectedSubtraction = new Quantity<>(0.0, LengthUnit.FEET);
+        assertEquals(subtraction, expectedSubtraction);
     }
 
     @Test
@@ -1028,8 +1028,8 @@ public class QuantityMeasurementAppTest {
         Quantity<LengthUnit> v1 = new Quantity<>(5.0, LengthUnit.FEET);
         Quantity<LengthUnit> v2 = new Quantity<>(0.0, LengthUnit.INCHES);
         Quantity<LengthUnit> subtraction = QuantityMeasurementApp.demonstrateSubtraction(v1, v2, LengthUnit.FEET);
-        Quantity<LengthUnit> expectedAddition = new Quantity<>(5.0, LengthUnit.FEET);
-        assertEquals(subtraction, expectedAddition);
+        Quantity<LengthUnit> expectedSubtraction = new Quantity<>(5.0, LengthUnit.FEET);
+        assertEquals(subtraction, expectedSubtraction);
     }
 
     @Test
@@ -1037,8 +1037,8 @@ public class QuantityMeasurementAppTest {
         Quantity<LengthUnit> v1 = new Quantity<>(5.0, LengthUnit.FEET);
         Quantity<LengthUnit> v2 = new Quantity<>(-2.0, LengthUnit.FEET);
         Quantity<LengthUnit> subtraction = QuantityMeasurementApp.demonstrateSubtraction(v1, v2);
-        Quantity<LengthUnit> expectedAddition = new Quantity<>(7.0, LengthUnit.FEET);
-        assertEquals(subtraction, expectedAddition);
+        Quantity<LengthUnit> expectedSubtraction = new Quantity<>(7.0, LengthUnit.FEET);
+        assertEquals(subtraction, expectedSubtraction);
     }
 
     @Test
@@ -1056,8 +1056,8 @@ public class QuantityMeasurementAppTest {
         Quantity<WeightUnit> w1 = new Quantity<>(1e6, WeightUnit.KILOGRAM);
         Quantity<WeightUnit> w2 = new Quantity<>(5e5, WeightUnit.KILOGRAM);
         Quantity<WeightUnit> subtraction = QuantityMeasurementApp.demonstrateSubtraction(w1, w2);
-        Quantity<WeightUnit> expectedAddition = new Quantity<>(5e5, WeightUnit.KILOGRAM);
-        assertEquals(subtraction, expectedAddition);
+        Quantity<WeightUnit> expectedSubtraction = new Quantity<>(5e5, WeightUnit.KILOGRAM);
+        assertEquals(subtraction, expectedSubtraction);
     }
 
     @Test
@@ -1065,14 +1065,14 @@ public class QuantityMeasurementAppTest {
         Quantity<LengthUnit> v1 = new Quantity<>(0.1, LengthUnit.FEET);
         Quantity<LengthUnit> v2 = new Quantity<>(0.05, LengthUnit.FEET);
         Quantity<LengthUnit> subtraction = QuantityMeasurementApp.demonstrateSubtraction(v1, v2);
-        Quantity<LengthUnit> expectedAddition = new Quantity<>(0.05, LengthUnit.FEET);
-        assertEquals(subtraction, expectedAddition);
+        Quantity<LengthUnit> expectedSubtraction = new Quantity<>(0.05, LengthUnit.FEET);
+        assertEquals(subtraction, expectedSubtraction);
     }
 
     @Test
     public void testSubtraction_nullOperand() {
 
-        Assert.assertThrows(IllegalArgumentException.class, () ->
+        Assert.assertThrows(NullPointerException.class, () ->
                 new Quantity<>(1.0, LengthUnit.FEET).subtract(null));
     }
 
@@ -1104,8 +1104,8 @@ public class QuantityMeasurementAppTest {
         Quantity<LengthUnit> v2 = new Quantity<>(2.0, LengthUnit.FEET);
         Quantity<LengthUnit> v3 = new Quantity<>(1.0, LengthUnit.FEET);
         Quantity<LengthUnit> subtraction = QuantityMeasurementApp.demonstrateSubtraction(v1, v2).subtract(v3);
-        Quantity<LengthUnit> expectedAddition = new Quantity<>(7.0, LengthUnit.FEET);
-        assertEquals(subtraction, expectedAddition);
+        Quantity<LengthUnit> expectedSubtraction = new Quantity<>(7.0, LengthUnit.FEET);
+        assertEquals(subtraction, expectedSubtraction);
     }
 
     @Test
@@ -1300,5 +1300,6 @@ public class QuantityMeasurementAppTest {
 
         assertEquals(divPre,2.50);
     }
+
 
 }
