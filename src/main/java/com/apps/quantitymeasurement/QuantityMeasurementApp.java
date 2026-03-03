@@ -170,4 +170,10 @@ public class QuantityMeasurementApp {
     public static <U extends Imeasurable> double demonstrateDivision(Quantity<U> q1, Quantity<U> q2) {
         return q1.divide(q2);
     }
+
+    public static <U extends Imeasurable> double demonstrateToCheckDivisionRatio(Quantity<U> q1, Quantity<U> q2) {
+        int divisionRatioIs = q1.compare(q2);
+        System.out.println("Division ration of " + q1.getValue() + " and " + q1.getValue() + " is = " + divisionRatioIs);
+        return divisionRatioIs;
+    }
 }

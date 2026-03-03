@@ -1190,8 +1190,8 @@ public class QuantityMeasurementAppTest {
     void testDivision_WithLargeRatio() {
         Quantity<WeightUnit> v1 = new Quantity<>(1e6, WeightUnit.KILOGRAM);
         Quantity<WeightUnit> v2 = new Quantity<>(1.0, WeightUnit.KILOGRAM);
-        double division = QuantityMeasurementApp.demonstrateDivision(v1, v2);
-        double expectedDivision = 1e6;
+        double division = QuantityMeasurementApp.demonstrateToCheckDivisionRatio(v1, v2);
+        double expectedDivision = 1;
         assertEquals(division, expectedDivision);
     }
 
@@ -1199,8 +1199,8 @@ public class QuantityMeasurementAppTest {
     void testDivision_WithSmallRatio() {
         Quantity<WeightUnit> v1 = new Quantity<>(1.0, WeightUnit.KILOGRAM);
         Quantity<WeightUnit> v2 = new Quantity<>(1e6, WeightUnit.KILOGRAM);
-        double division = QuantityMeasurementApp.demonstrateDivision(v1, v2);
-        double expectedDivision = 1e-6;
+        double division = QuantityMeasurementApp.demonstrateToCheckDivisionRatio(v1, v2);
+        double expectedDivision = -1;
         assertEquals(division, expectedDivision);
     }
 
