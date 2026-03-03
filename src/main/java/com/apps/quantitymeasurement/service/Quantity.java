@@ -146,7 +146,6 @@ public class Quantity<U extends Imeasurable> {
 
     public static void main(String[] args) {
 
-
         Quantity<LengthUnit> base = new Quantity<>(5.0, LengthUnit.FEET);
         Quantity<LengthUnit> other = new Quantity<>(3.0, LengthUnit.FEET);
         Quantity<LengthUnit> diff = base.subtract(other);

@@ -99,7 +99,7 @@ public class QuantityMeasurementApp {
 
 
         System.out.println();
-        System.out.println("----------- UC11 volume unit operations -----------");
+        System.out.println("----------- volume unit operations -----------");
         System.out.println();
 
         Quantity<VolumeUnit> v1 = new Quantity<>(1.0, VolumeUnit.LITRE);
@@ -169,5 +169,11 @@ public class QuantityMeasurementApp {
 
     public static <U extends Imeasurable> double demonstrateDivision(Quantity<U> q1, Quantity<U> q2) {
         return q1.divide(q2);
+    }
+
+    public static <U extends Imeasurable> double demonstrateToCheckDivisionRatio(Quantity<U> q1, Quantity<U> q2) {
+        int ratio = q1.compare(q2);
+        System.out.println("Division ratio of " + q1.getValue() + " and " + q2.getValue() + " is = " + ratio);
+        return ratio;
     }
 }
