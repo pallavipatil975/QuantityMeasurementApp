@@ -65,7 +65,25 @@ public class Quantity<U extends Imeasurable> {
 
         double resultInTarget =  this.performArithmetic(other, this.getUnit(), ArithmeticOperation.DIVIDE);
         return new Quantity<>(resultInTarget, this.getUnit()).getValue();
+    }
+//
+//    public Quantity<U> multiply(double other) {
+//        if (Double.isNaN(other) || Double.isInfinite(other)) {
+//            throw new IllegalArgumentException("Enter valid number");
+//        }
+//
+//        Quantity<U> resultInThisUnit = this.performArithmetic(other, this.getUnit(), ArithmeticOperation.MULTIPLY);
+//        return new Quantity<>(this.getUnit().convertFromBaseUnit(resultInThisUnit.getValue()), this.getUnit());
+//    }
 
+    public Quantity<U> multiply(double scalar) {
+        if (Double.isNaN(scalar) || Double.isInfinite(scalar)) {
+            throw new IllegalArgumentException("Enter valid number");
+        }
+        double thisInBase = this.unit.convertToBaseUnit(this.value);
+        double resultInBase = ArithmeticOperation.MULTIPLY.compute(thisInBase, scalar);
+        double resultInThisUnit = this.unit.convertFromBaseUnit(resultInBase);
+        return new Quantity<>(resultInThisUnit, this.unit);
     }
 
     @Override
@@ -92,7 +110,7 @@ public class Quantity<U extends Imeasurable> {
      */
     private void validateArithmeticOperands(Quantity<U> other, U targetUnit) {
         if (other == null) {
-            throw new IllegalArgumentException("other Quantity cannot be null");
+            throw new NullPointerException("other Quantity cannot be null");
         }
         if (!this.unit.getClass().equals(other.unit.getClass())) {
             throw new IllegalArgumentException("unit are not equal");
@@ -109,7 +127,7 @@ public class Quantity<U extends Imeasurable> {
         }
     }
 
-    private enum ArithmeticOperation {
+    public enum ArithmeticOperation {
 
         ADD {
             @Override
@@ -127,9 +145,15 @@ public class Quantity<U extends Imeasurable> {
             @Override
             public double compute(double thisBase, double otherBase) {
                 if (otherBase == 0.0) {
-                    throw new ArithmeticException("cannot divide by zero");
+                    throw new ArithmeticException("enter correct number");
                 }
                 return thisBase / otherBase;
+            }
+        },
+        MULTIPLY {
+            @Override
+            public double compute(double thisBase, double otherBase) {
+                return thisBase * otherBase;
             }
         };
         public abstract double compute(double thisBase, double otherBase);
@@ -137,7 +161,7 @@ public class Quantity<U extends Imeasurable> {
 
     //perform arithmetic operation on the base unit values,
     //and handle addition, subtraction and division operations
-    private double performArithmetic(Quantity<U> other, U targetUnit, ArithmeticOperation operation) {
+    public double performArithmetic(Quantity<U> other, U targetUnit, ArithmeticOperation operation) {
        this.validateArithmeticOperands(other, targetUnit);
         return operation.compute
                 (this.getUnit().convertToBaseUnit(this.getValue()),
@@ -169,6 +193,9 @@ public class Quantity<U extends Imeasurable> {
 
         double result = q1.divide(q2);
         System.out.println("division of feet to feet : " + result);
+
+        System.out.println("multiplication is : " + q1.multiply(5));
+
     }
 
 
