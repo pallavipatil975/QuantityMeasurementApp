@@ -1,12 +1,13 @@
 package main.java.com.apps.quantitymeasurement.service;
 
 import main.java.com.apps.quantitymeasurement.constant.LengthUnit;
+import main.java.com.apps.quantitymeasurement.constant.TemperatureUnit;
 import main.java.com.apps.quantitymeasurement.constant.VolumeUnit;
 import main.java.com.apps.quantitymeasurement.constant.WeightUnit;
 
 public class Quantity<U extends Imeasurable> {
-    private double value;
-    private U unit;
+    private final double value;
+    private final U unit;
 
     public Quantity(double value, U unit) {
         if(Double.isNaN(value) ||Double.isInfinite(value))
@@ -27,7 +28,13 @@ public class Quantity<U extends Imeasurable> {
     }
 
     public <U extends Imeasurable> double convertTo(U targetUnit) {
-        return targetUnit.convertFromBaseUnit(this.getValue());
+
+        if (targetUnit == null) throw new IllegalArgumentException("targetUnit cannot be null");
+        if (!this.unit.getClass().equals(targetUnit.getClass())) {
+            throw new IllegalArgumentException("Cross-category conversion is not allowed");
+        }
+        double base = this.unit.convertToBaseUnit(this.value);
+        return targetUnit.convertFromBaseUnit(base);
     }
 
     public Quantity<U> add(Quantity<U> other) {
@@ -43,6 +50,12 @@ public class Quantity<U extends Imeasurable> {
 
     //compare two  objects
     public int compare(Quantity<U> unit) {
+
+        if (unit == null) throw new NullPointerException("other Quantity cannot be null");
+        if (!this.unit.getClass().equals(unit.unit.getClass())) {
+            throw new IllegalArgumentException("Cross-category comparison is not allowed");
+        }
+
         return Double
                 .compare(this.getUnit().convertToBaseUnit(this.getValue()),
                         unit.getUnit().convertToBaseUnit(unit.getValue()));
@@ -66,20 +79,12 @@ public class Quantity<U extends Imeasurable> {
         double resultInTarget =  this.performArithmetic(other, this.getUnit(), ArithmeticOperation.DIVIDE);
         return new Quantity<>(resultInTarget, this.getUnit()).getValue();
     }
-//
-//    public Quantity<U> multiply(double other) {
-//        if (Double.isNaN(other) || Double.isInfinite(other)) {
-//            throw new IllegalArgumentException("Enter valid number");
-//        }
-//
-//        Quantity<U> resultInThisUnit = this.performArithmetic(other, this.getUnit(), ArithmeticOperation.MULTIPLY);
-//        return new Quantity<>(this.getUnit().convertFromBaseUnit(resultInThisUnit.getValue()), this.getUnit());
-//    }
 
     public Quantity<U> multiply(double scalar) {
         if (Double.isNaN(scalar) || Double.isInfinite(scalar)) {
             throw new IllegalArgumentException("Enter valid number");
         }
+
         double thisInBase = this.unit.convertToBaseUnit(this.value);
         double resultInBase = ArithmeticOperation.MULTIPLY.compute(thisInBase, scalar);
         double resultInThisUnit = this.unit.convertFromBaseUnit(resultInBase);
@@ -195,6 +200,19 @@ public class Quantity<U extends Imeasurable> {
         System.out.println("division of feet to feet : " + result);
 
         System.out.println("multiplication is : " + q1.multiply(5));
+
+
+        
+        Quantity<TemperatureUnit> t1 = new Quantity<>(0.0, TemperatureUnit.CELSIUS);
+        Quantity<TemperatureUnit> t2 = new Quantity<>(32.0, TemperatureUnit.FAHRENHEIT);
+        System.out.println("0 equals 32 " + t1.equals(t2));
+
+        Quantity<TemperatureUnit> t3 = new Quantity<>(100.0, TemperatureUnit.CELSIUS);
+
+        System.out.println(TemperatureUnit.FAHRENHEIT.convertFromBaseUnit(t3.getValue()));
+        System.out.println("Temperature t2==" + t2.equals(new Quantity<>(373.15, TemperatureUnit.FAHRENHEIT)));
+        System.out.println(t3.add(new Quantity<>(20.0, TemperatureUnit.CELSIUS)));
+        System.out.println(t3.subtract(new Quantity<>(30.0, TemperatureUnit.CELSIUS)));
 
     }
 
