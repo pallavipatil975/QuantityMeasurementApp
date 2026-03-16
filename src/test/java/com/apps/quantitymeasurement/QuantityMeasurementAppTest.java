@@ -1,17 +1,16 @@
 package test.java.com.apps.quantitymeasurement;
 
+
 import main.java.com.apps.quantitymeasurement.*;
 import main.java.com.apps.quantitymeasurement.QuantityMeasurementApp.*;
 import main.java.com.apps.quantitymeasurement.constant.LengthUnit;
 import main.java.com.apps.quantitymeasurement.constant.VolumeUnit;
 import main.java.com.apps.quantitymeasurement.constant.WeightUnit;
 import main.java.com.apps.quantitymeasurement.service.*;
-import org.junit.Assert;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.EnumSource;
 
-import java.lang.reflect.WildcardType;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -325,7 +324,7 @@ public class QuantityMeasurementAppTest {
 
     @Test
     public void testEquality_nullUnit() {
-        Assert.assertThrows(IllegalArgumentException.class, () ->
+         assertThrows(IllegalArgumentException.class, () ->
                 new Quantity<WeightUnit>(1000.0, null));
     }
 
@@ -627,7 +626,7 @@ public class QuantityMeasurementAppTest {
 
     @Test
     public void testEquality_Volume_NullUnit() {
-        Assert.assertThrows(IllegalArgumentException.class, () ->
+         assertThrows(IllegalArgumentException.class, () ->
                 new Quantity<VolumeUnit>(1000.0, null));
     }
 
@@ -1071,14 +1070,14 @@ public class QuantityMeasurementAppTest {
     @Test
     public void testSubtraction_nullOperand() {
 
-        Assert.assertThrows(NullPointerException.class, () ->
+         assertThrows(NullPointerException.class, () ->
                 new Quantity<>(1.0, LengthUnit.FEET).subtract(null));
     }
 
 
     @Test
     public void testSubtraction_nullTargetUnit() {
-        Assert.assertThrows(IllegalArgumentException.class, () ->
+         assertThrows(IllegalArgumentException.class, () ->
                 new Quantity<>(1.0, LengthUnit.FEET)
                         .subtract(new Quantity<>(5.0, LengthUnit.FEET), null));
     }
@@ -1205,7 +1204,7 @@ public class QuantityMeasurementAppTest {
 
     @Test
     public void testDivision_NullOperand() {
-        Assert.assertThrows(NullPointerException.class, () ->
+         assertThrows(NullPointerException.class, () ->
                 new Quantity<>(10.0, LengthUnit.FEET).divide(null));
     }
 
@@ -1334,13 +1333,13 @@ public class QuantityMeasurementAppTest {
     public void testValidation_NullOperand_ConsistentAcrossOperations() {
         Quantity<LengthUnit> q = new Quantity<>(10.0, LengthUnit.FEET);
 
-        Assert.assertThrows(NullPointerException.class, () -> {
+         assertThrows(NullPointerException.class, () -> {
             q.add(null);
         });
-        Assert.assertThrows(NullPointerException.class, () -> {
+         assertThrows(NullPointerException.class, () -> {
             q.subtract(null);
         });
-        Assert.assertThrows(NullPointerException.class, () -> {
+         assertThrows(NullPointerException.class, () -> {
             q.divide(null);
         });
     }
@@ -1358,13 +1357,13 @@ public class QuantityMeasurementAppTest {
     public void testValidation_FiniteValue_ConsistentAcrossOperations() {
         Quantity<LengthUnit> q = new Quantity<>(10.0, LengthUnit.FEET);
 
-        Assert.assertThrows(NullPointerException.class, () -> {
+         assertThrows(NullPointerException.class, () -> {
             q.add(null);
         });
-        Assert.assertThrows(NullPointerException.class, () -> {
+         assertThrows(NullPointerException.class, () -> {
             q.subtract(null);
         });
-        Assert.assertThrows(NullPointerException.class, () -> {
+         assertThrows(NullPointerException.class, () -> {
             q.divide(null);
         });
     }
@@ -1375,10 +1374,10 @@ public class QuantityMeasurementAppTest {
         Quantity<LengthUnit> v1 = new Quantity<>(10.0, LengthUnit.FEET);
         Quantity<LengthUnit> v2 = new Quantity<>(5.0, LengthUnit.FEET);
 
-        Assert.assertThrows(IllegalArgumentException.class,
+         assertThrows(IllegalArgumentException.class,
                 () -> v1.add(v2, null));
 
-        Assert.assertThrows(IllegalArgumentException.class,
+         assertThrows(IllegalArgumentException.class,
                 () -> v1.subtract(v2, null));
     }
 
@@ -1399,7 +1398,7 @@ public class QuantityMeasurementAppTest {
 
     @Test
     public void testArithmeticOperation_DivideByZero_EnumThrows() {
-        Assert.assertThrows(ArithmeticException.class,
+         assertThrows(ArithmeticException.class,
                 () -> Quantity.ArithmeticOperation.DIVIDE.compute(10.0, 0.0));
     }
 
