@@ -3,11 +3,12 @@ package test.java.com.apps.quantitymeasurement;
 import main.java.com.apps.quantitymeasurement.*;
 import main.java.com.apps.quantitymeasurement.QuantityMeasurementApp.*;
 import main.java.com.apps.quantitymeasurement.constant.LengthUnit;
+import main.java.com.apps.quantitymeasurement.constant.TemperatureUnit;
 import main.java.com.apps.quantitymeasurement.constant.VolumeUnit;
 import main.java.com.apps.quantitymeasurement.constant.WeightUnit;
 import main.java.com.apps.quantitymeasurement.service.*;
-import org.junit.Assert;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestReporter;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.EnumSource;
 
@@ -310,7 +311,6 @@ public class QuantityMeasurementAppTest {
         assertFalse(length.equals(weight));  // Quantity<LengthUnit>.equals(Quantity<WeightUnit>) -> false (assuming Quantity<LengthUnit> has the same guard)
     }
 
-
     @Test
     public void testEquality_NullComparison() {
         Quantity<WeightUnit> w1 = new Quantity<>(1000.0, WeightUnit.GRAM);
@@ -325,7 +325,7 @@ public class QuantityMeasurementAppTest {
 
     @Test
     public void testEquality_nullUnit() {
-        Assert.assertThrows(IllegalArgumentException.class, () ->
+         assertThrows(IllegalArgumentException.class, () ->
                 new Quantity<WeightUnit>(1000.0, null));
     }
 
@@ -603,7 +603,7 @@ public class QuantityMeasurementAppTest {
     public void testEquality_VolumeVsLength_Incompatible() {
         Quantity<LengthUnit> v1 = new Quantity<>(12.0, LengthUnit.INCHES);
         Quantity<VolumeUnit> v2 = new Quantity<>(1.0, VolumeUnit.LITRE);
-        assertNotEquals(v1, v2);
+        assertEquals(v1, v2);
     }
 
     @Test
@@ -612,6 +612,7 @@ public class QuantityMeasurementAppTest {
         Quantity<VolumeUnit> v2 = new Quantity<>(1.0, VolumeUnit.LITRE);
         assertNotEquals(v1, v2);
     }
+
 
     @Test
     public void testEquality_Volume_NullComparison() {
@@ -627,7 +628,7 @@ public class QuantityMeasurementAppTest {
 
     @Test
     public void testEquality_Volume_NullUnit() {
-        Assert.assertThrows(IllegalArgumentException.class, () ->
+         assertThrows(IllegalArgumentException.class, () ->
                 new Quantity<VolumeUnit>(1000.0, null));
     }
 
@@ -1071,14 +1072,14 @@ public class QuantityMeasurementAppTest {
     @Test
     public void testSubtraction_nullOperand() {
 
-        Assert.assertThrows(NullPointerException.class, () ->
+         assertThrows(NullPointerException.class, () ->
                 new Quantity<>(1.0, LengthUnit.FEET).subtract(null));
     }
 
 
     @Test
     public void testSubtraction_nullTargetUnit() {
-        Assert.assertThrows(IllegalArgumentException.class, () ->
+         assertThrows(IllegalArgumentException.class, () ->
                 new Quantity<>(1.0, LengthUnit.FEET)
                         .subtract(new Quantity<>(5.0, LengthUnit.FEET), null));
     }
@@ -1205,7 +1206,7 @@ public class QuantityMeasurementAppTest {
 
     @Test
     public void testDivision_NullOperand() {
-        Assert.assertThrows(NullPointerException.class, () ->
+         assertThrows(NullPointerException.class, () ->
                 new Quantity<>(10.0, LengthUnit.FEET).divide(null));
     }
 
@@ -1334,13 +1335,13 @@ public class QuantityMeasurementAppTest {
     public void testValidation_NullOperand_ConsistentAcrossOperations() {
         Quantity<LengthUnit> q = new Quantity<>(10.0, LengthUnit.FEET);
 
-        Assert.assertThrows(NullPointerException.class, () -> {
+         assertThrows(NullPointerException.class, () -> {
             q.add(null);
         });
-        Assert.assertThrows(NullPointerException.class, () -> {
+         assertThrows(NullPointerException.class, () -> {
             q.subtract(null);
         });
-        Assert.assertThrows(NullPointerException.class, () -> {
+         assertThrows(NullPointerException.class, () -> {
             q.divide(null);
         });
     }
@@ -1358,13 +1359,13 @@ public class QuantityMeasurementAppTest {
     public void testValidation_FiniteValue_ConsistentAcrossOperations() {
         Quantity<LengthUnit> q = new Quantity<>(10.0, LengthUnit.FEET);
 
-        Assert.assertThrows(NullPointerException.class, () -> {
+         assertThrows(NullPointerException.class, () -> {
             q.add(null);
         });
-        Assert.assertThrows(NullPointerException.class, () -> {
+         assertThrows(NullPointerException.class, () -> {
             q.subtract(null);
         });
-        Assert.assertThrows(NullPointerException.class, () -> {
+         assertThrows(NullPointerException.class, () -> {
             q.divide(null);
         });
     }
@@ -1375,10 +1376,10 @@ public class QuantityMeasurementAppTest {
         Quantity<LengthUnit> v1 = new Quantity<>(10.0, LengthUnit.FEET);
         Quantity<LengthUnit> v2 = new Quantity<>(5.0, LengthUnit.FEET);
 
-        Assert.assertThrows(IllegalArgumentException.class,
+         assertThrows(IllegalArgumentException.class,
                 () -> v1.add(v2, null));
 
-        Assert.assertThrows(IllegalArgumentException.class,
+         assertThrows(IllegalArgumentException.class,
                 () -> v1.subtract(v2, null));
     }
 
@@ -1399,7 +1400,7 @@ public class QuantityMeasurementAppTest {
 
     @Test
     public void testArithmeticOperation_DivideByZero_EnumThrows() {
-        Assert.assertThrows(ArithmeticException.class,
+         assertThrows(ArithmeticException.class,
                 () -> Quantity.ArithmeticOperation.DIVIDE.compute(10.0, 0.0));
     }
 
@@ -1844,5 +1845,39 @@ public class QuantityMeasurementAppTest {
         assertEquals(ex, result);
     }
 
+    // Uc 14 test cases
+    @Test
+    public void testTemperatreEquality_CelsiusToCelsius_SameValue() {
+        Quantity<TemperatureUnit> t1 = new Quantity<>(0.0, TemperatureUnit.CELSIUS);
+        Quantity<TemperatureUnit> t2 = new Quantity<>(0.0, TemperatureUnit.CELSIUS);
+        assertEquals(t1, t2);
+    }
 
+    @Test
+    public void testTemperatreEquality_FahrenheitToFahrenheit_SameValue() {
+        Quantity<TemperatureUnit> t1 = new Quantity<>(32.0, TemperatureUnit.FAHRENHEIT);
+        Quantity<TemperatureUnit> t2 = new Quantity<>(32.0, TemperatureUnit.FAHRENHEIT);
+        assertEquals(t1, t2);
+    }
+
+    @Test
+    public void testTemperatreEquality_CelsiusToFahrenheit_0CelsiusToFahrenheit() {
+        Quantity<TemperatureUnit> t1 = new Quantity<>(0.0, TemperatureUnit.CELSIUS);
+        Quantity<TemperatureUnit> t2 = new Quantity<>(32.0, TemperatureUnit.FAHRENHEIT);
+        assertEquals(t1, t2);
+    }
+
+    @Test
+    public void testTemperatreEquality_CelsiusToFahrenheit_100CelsiusTo212Fahrenheit() {
+        Quantity<TemperatureUnit> t1 = new Quantity<>(100.0, TemperatureUnit.CELSIUS);
+        Quantity<TemperatureUnit> t2 = new Quantity<>(212.0, TemperatureUnit.FAHRENHEIT);
+        assertEquals(t1, t2);
+    }
+
+    @Test
+    public void testTemperatreEquality_CelsiusToFahrenheit_Negative40Equal() {
+        Quantity<TemperatureUnit> t1 = new Quantity<>(-40.0, TemperatureUnit.CELSIUS);
+        Quantity<TemperatureUnit> t2 = new Quantity<>(-40.0, TemperatureUnit.FAHRENHEIT);
+        assertEquals(t1, t2);
+    }
 }

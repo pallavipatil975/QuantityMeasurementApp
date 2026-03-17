@@ -27,14 +27,15 @@ public class Quantity<U extends Imeasurable> {
         return unit;
     }
 
-    public <U extends Imeasurable> double convertTo(U targetUnit) {
-
+    // Inside Quantity<U extends Imeasurable>
+    public Quantity<U> convertTo(U targetUnit) {
         if (targetUnit == null) throw new IllegalArgumentException("targetUnit cannot be null");
         if (!this.unit.getClass().equals(targetUnit.getClass())) {
             throw new IllegalArgumentException("Cross-category conversion is not allowed");
         }
         double base = this.unit.convertToBaseUnit(this.value);
-        return targetUnit.convertFromBaseUnit(base);
+        double converted = targetUnit.convertFromBaseUnit(base);
+        return new Quantity<>(converted, targetUnit);
     }
 
     public Quantity<U> add(Quantity<U> other) {
@@ -201,19 +202,23 @@ public class Quantity<U extends Imeasurable> {
 
         System.out.println("multiplication is : " + q1.multiply(5));
 
-
-        
+        // Equality Demonstration
         Quantity<TemperatureUnit> t1 = new Quantity<>(0.0, TemperatureUnit.CELSIUS);
         Quantity<TemperatureUnit> t2 = new Quantity<>(32.0, TemperatureUnit.FAHRENHEIT);
         System.out.println("0 equals 32 " + t1.equals(t2));
 
+        // Conversion Demonstration
+        Quantity<TemperatureUnit> celsius = new Quantity<>(100.0, TemperatureUnit.CELSIUS);
+        Quantity<TemperatureUnit> fehrenheit = celsius.convertTo(TemperatureUnit.FAHRENHEIT);
+        System.out.println("100 c = " +  fehrenheit.getValue() + " F");
         Quantity<TemperatureUnit> t3 = new Quantity<>(100.0, TemperatureUnit.CELSIUS);
 
-        System.out.println(TemperatureUnit.FAHRENHEIT.convertFromBaseUnit(t3.getValue()));
-        System.out.println("Temperature t2==" + t2.equals(new Quantity<>(373.15, TemperatureUnit.FAHRENHEIT)));
-        System.out.println(t3.add(new Quantity<>(20.0, TemperatureUnit.CELSIUS)));
-        System.out.println(t3.subtract(new Quantity<>(30.0, TemperatureUnit.CELSIUS)));
-
+        // Unsupported Opeartion Demonstration
+        try{
+            celsius.add(new Quantity<>(50.0, TemperatureUnit.CELSIUS));
+        }catch (UnsupportedOperationException e){
+            System.out.println("cannot add absolute temperatures" +  e.getMessage());
+        }
     }
 
 
